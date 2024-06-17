@@ -5,6 +5,8 @@ const Footer = () => {
   return (
     <footer>
       <p>&copy; 2024 My Store</p>
+      <br />
+      <br />
     </footer>
   );
 };

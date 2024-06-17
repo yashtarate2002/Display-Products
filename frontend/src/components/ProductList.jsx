@@ -3,18 +3,27 @@ import ProductCard from './ProductCard';
 import SearchBar from './SearchBar';
 import SortOptions from './SortOptions';
 import '../Style/ProductList.css';
+import { Link } from 'react-router-dom';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortCriteria, setSortCriteria] = useState('name');
   const [visibleProducts, setVisibleProducts] = useState(8);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch('https://fakestoreapi.com/products');
-      const data = await response.json();
-      setProducts(data);
+      setLoading(true); 
+      try {
+        const response = await fetch('https://fakestoreapi.com/products');
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false); 
+      }
     };
 
     fetchProducts();
@@ -48,16 +57,35 @@ const ProductList = () => {
 
   return (
     <div>
+      <br />
+      <br />
       <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
       <SortOptions sortCriteria={sortCriteria} onSortChange={handleSortChange} />
-      <div className="product-list">
-        {filteredProducts.slice(0, visibleProducts).map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="loader">Loading...</div>
+      ) : (
+        <div className="product-list">
+          {filteredProducts.slice(0, visibleProducts).map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
+      <br />
       {visibleProducts < filteredProducts.length && (
         <button className="load" onClick={handleLoadMore}>Load More</button>
       )}
+
+      <br />
+      <br />
+
+      <div className="users">
+        <h2>Users</h2>
+        <Link to='/users' className='user-btn'>User</Link>
+        <br />
+        <br />
+        <br />
+        <br />
+      </div>
     </div>
   );
 };
