@@ -1,7 +1,7 @@
 # Responsive Product List
 
 A responsive web page that displays a list of products fetched from the Fake Store API. This project is built using React and styled with CSS to ensure a smooth and visually appealing user experience across different devices.
-# Demo - https://capable-sundae-0413e5.netlify.app/
+# Demo - [https://capable-sundae-0413e5.netlify.app/](https://effulgent-cajeta-08312a.netlify.app/)
 ## Table of Contents
 
 - [Introduction](#introduction)
